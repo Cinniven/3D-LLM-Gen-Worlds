@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LLMUnity;
 using UnityEngine.UI;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LLMUnitySamples
 {
@@ -98,8 +100,20 @@ namespace LLMUnitySamples
 
         public void AllowInput()
         {
+            SaveChunk(llmCharacter.chat[llmCharacter.chat.Count].ToString());
             blockInput = false;
             inputBubble.ReActivateInputField();
+        }
+
+        public void SaveChunk(string chunk)
+        {
+            string filename = "ExampleJson";
+
+            string json = JsonUtility.ToJson(chunk, true);
+            string path = Path.Combine(UnityEngine.Application.persistentDataPath, filename);
+            File.WriteAllText(path, json);
+
+            Debug.Log($"Chunk saved to: {path}");
         }
 
         public void CancelRequests()
@@ -169,7 +183,7 @@ namespace LLMUnitySamples
         public void ExitGame()
         {
             Debug.Log("Exit button clicked");
-            Application.Quit();
+            UnityEngine.Application.Quit();
         }
 
         bool onValidateWarning = true;

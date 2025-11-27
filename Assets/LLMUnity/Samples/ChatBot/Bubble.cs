@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using LLMUnity;
+using System.IO;
 
 namespace LLMUnitySamples
 {
