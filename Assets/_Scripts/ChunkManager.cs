@@ -86,6 +86,8 @@ public class ChunkManager : MonoBehaviour
         Chunk chunk = new Chunk();
         foreach (Transform child in saveChunk)
         {
+            String newName ="";
+            switch (child.name)
             {
                 case string a when a.Contains("Tree"):
                   newName = "Tree";
