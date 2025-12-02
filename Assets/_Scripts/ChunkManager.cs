@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using QFSW;
 using QFSW.QC;
 using VInspector;
+
 public class ChunkManager : MonoBehaviour
 {
     [SerializeField] public static ChunkManager Instance;
@@ -86,11 +87,27 @@ public class ChunkManager : MonoBehaviour
         Chunk chunk = new Chunk();
         foreach (Transform child in saveChunk)
         {
+            String newName = "";
+            switch (child.name)
+            {
+                case string a when a.Contains("Tree"):
+                    newName = "Tree";
+                    break;
+                case string a when a.Contains("Bush"):
+                    newName = "Bush";
+                    break;
+                case string a when a.Contains("House"):
+                    newName = "House";
+                    break;
+                default:
+                    Debug.LogWarning($"Unsupported object type: {child.name}. Skipping.");
+                    continue;
+            }
             ObjectData data = new ObjectData
             {
-                name = child.name,
-                position = child.position,
-                rotation = child.rotation,
+                name = newName,
+                position = child.localPosition,
+                rotation = child.localRotation,
                 size = child.localScale
             };
 
@@ -109,8 +126,21 @@ public class ChunkManager : MonoBehaviour
     }
     public void JsonFileSaver(string filename, string json)
     {
+        string roundedJson = System.Text.RegularExpressions.Regex.Replace(
+        json,
+        @"-?\d+(\.\d+)?",
+        match =>
+        {
+            if (float.TryParse(match.Value, out float f))
+            {
+                return MathF.Round(f, 2).ToString("0.##");
+            }
+            return match.Value;
+        }
+    );
+
         string path = Path.Combine(Application.streamingAssetsPath + "\\chunks", filename);
-        File.WriteAllText(path, json);
+        File.WriteAllText(path, roundedJson);
     }
 }
 
