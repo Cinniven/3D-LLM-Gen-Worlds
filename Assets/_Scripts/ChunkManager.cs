@@ -86,9 +86,23 @@ public class ChunkManager : MonoBehaviour
         Chunk chunk = new Chunk();
         foreach (Transform child in saveChunk)
         {
+            {
+                case string a when a.Contains("Tree"):
+                  newName = "Tree";
+                    break;
+                case string a when a.Contains("Bush"):
+                  newName = "Bush";
+                    break;  
+                case string a when a.Contains("House"):
+                    newName = "House";
+                    break;
+                default:
+                    Debug.LogWarning($"Unsupported object type: {child.name}. Skipping.");
+                    continue;
+            }
             ObjectData data = new ObjectData
             {
-                name = child.name,
+                name = newName,
                 position = child.position,
                 rotation = child.rotation,
                 size = child.localScale
