@@ -8,11 +8,14 @@ using VInspector;
 
 public class ChunkManager : MonoBehaviour
 {
+    
     [SerializeField] public static ChunkManager Instance;
     [SerializeField] private Transform llmChunk;
     [SerializeField] private Transform[] chunks;
     [SerializeField] private GameObject treePrefab, bushPrefab, housePrefab; // a generic prefab to represent loaded objects
 
+    public string folderName = "marcChunks 11";
+    public int foldercounter =16;
     private void Awake()
     {
         if (Instance == null)
@@ -123,6 +126,7 @@ public class ChunkManager : MonoBehaviour
         {
             JsonFileSaver("chunk" + i, SaveChunk(chunks[i]));
         }
+        foldercounter++;
     }
     public void JsonFileSaver(string filename, string json)
     {
@@ -139,8 +143,9 @@ public class ChunkManager : MonoBehaviour
         }
     );
 
-        string path = Path.Combine(Application.streamingAssetsPath + "\\chunks", filename);
+        string path = Path.Combine(Application.streamingAssetsPath + "\\" + folderName + " " + foldercounter, filename);
         File.WriteAllText(path, roundedJson);
+        ScreenCapture.CaptureScreenshot(Path.Combine(Application.streamingAssetsPath + "\\" + folderName + " " + foldercounter, filename + ".png"));
     }
 }
 
