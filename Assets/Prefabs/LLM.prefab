@@ -44,15 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  advancedOptions: 0
+  advancedOptions: 1
   remote: 0
   port: 13333
   numThreads: -1
-  numGPULayers: 0
+  numGPULayers: 60
   debug: 0
   parallelPrompts: -1
   dontDestroyOnLoad: 1
-  contextSize: 8192
+  contextSize: 16384
   batchSize: 512
   model: Qwen3-8B-Q4_K_M.gguf
   chatTemplate: qwen3

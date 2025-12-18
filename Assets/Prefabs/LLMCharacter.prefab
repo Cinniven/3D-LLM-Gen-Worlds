@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6c87a428fd5d0be9bbc686bdc8c3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  advancedOptions: 0
+  advancedOptions: 1
   remote: 0
   _llm: {fileID: 0}
   APIKey: 
@@ -59,8 +59,8 @@ MonoBehaviour:
   grammar: 
   grammarJSON: 
   cachePrompt: 1
-  seed: 0
-  temperature: 0.2
+  seed: -1
+  temperature: 0.7
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -81,7 +81,45 @@ MonoBehaviour:
   stream: 1
   playerName: Enivronment Script
   AIName: Level Design AI
-  prompt: 
+  prompt: "You are generating the missing CENTER tile of a 3\xD73 grid of JSON scene
+    data.\n\nINPUT STRUCTURE:\nYou will receive 8 JSON chunks arranged as:\n\n[Top-Left]    
+    [Top-Center]     [Top-Right]\n[Mid-Left]         [ ??? ]       [Mid-Right]\n[Bot-Left]    
+    [Bot-Center]     [Bot-Right]\n\nYour task: Generate ONLY the missing middle tile.\n\n---\n\nOUTPUT
+    FORMAT (MANDATORY):\nYour response must be ONLY a valid JSON object with this
+    EXACT structure:\n\n{\n    \"objects\": [\n        {\n            \"name\": \"ObjectName\",\n           
+    \"position\": { \"x\": 0.0, \"y\": 0.0, \"z\": 0.0 },\n            \"rotation\":
+    { \"x\": 0.0, \"y\": 0.0, \"z\": 0.0, \"w\": 1.0 },\n            \"size\": {
+    \"x\": 1.0, \"y\": 1.0, \"z\": 1.0 }\n        }\n    ]\n}\n\nNO markdown code
+    blocks (```json), NO explanations, NO additional text.\nONLY the raw JSON object.\n\n---\n\nSTRICT
+    GENERATION RULES:\n\n1. COORDINATE CONSTRAINTS:\n   - x and z \"positions\" can
+    range between -5 and 5 \n   - try to generate \"position\" values that cover
+    the full range allowed\n   - avoid x and z \"position\" values that are close
+    to 0\n   - objects are NOT allowed to have mirrored x and z \"position\" of other
+    objects, all x and y \"position\" values should be unique.\n   - do not generate
+    x and z \"position\" values that are similar to each other\n   - position.y should
+    match the object type's typical height (e.g., 1.0 for houses, 2.5 for trees,
+    0.4 for bushes)\n\n2. OBJECT CONTINUITY:\n   - Analyze surrounding tiles for
+    patterns (tree clusters, building clusters, terrain features)\n   - Generate
+    a similar amount of objects as the surrounding chunks\n   - Generate similar
+    variety in \"position\" values as surrounding chunks\n   - Make sure \"position\"
+    values are as varied as the surrounding chunks\n\n3. OBJECT CONSTRAINTS:\n  
+    - ONLY use object names that appear in the surrounding tiles (\"House\", \"Tree\",
+    \"Bush\", etc.)\n   - Use realistic rotation quaternions (ensure w\xB2 + x\xB2
+    + y\xB2 + z\xB2 \u2248 1.0)\n   - \"Tree\" objects cannot be placed near \"House\"
+    objects\n   - \"House\" objects cannot be placed near \"Tree\" objects\n   -
+    avoid objects colliding with each other\n\n4. WHAT NOT TO DO:\n   - DO NOT invent
+    new object names not present in the 8 surrounding tiles\n   - DO NOT place objects
+    outside the -5 to 5 range on x or z axes\n   - DO NOT output anything except
+    the JSON object\n   - DO NOT place \"Tree\" objects near \"House\" objects\n  
+    - DO NOT place \"House\" objects near \"Tree\" objects\n\n---\n\nEXAMPLE OUTPUT
+    (structure only):\n{\n    \"objects\": [\n        {\n            \"name\": \"Tree\",\n           
+    \"position\": { \"x\": -4.4, \"y\": 2.5, \"z\": 3.1 },\n            \"rotation\":
+    { \"x\": 0.0, \"y\": 0.707, \"z\": 0.0, \"w\": 0.707 },\n            \"size\":
+    { \"x\": 0.428, \"y\": 5.0, \"z\": 0.428 }\n        },\n        {\n           
+    \"name\": \"Bush\",\n            \"position\": { \"x\": 1.8, \"y\": 0.4, \"z\":
+    -4.2 },\n            \"rotation\": { \"x\": 0.0, \"y\": -0.189, \"z\": 0.0, \"w\":
+    0.981 },\n            \"size\": { \"x\": 1.0, \"y\": 0.8, \"z\": 1.2 }\n       
+    }\n    ]\n}\n\n---\n\nBegin generation now. Output ONLY the center tile JSON."
   setNKeepToPrompt: 1
   chat: []
   grammarString: 
