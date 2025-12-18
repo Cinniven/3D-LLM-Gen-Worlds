@@ -1320,30 +1320,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LLM
       objectReference: {fileID: 0}
-    - target: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-      propertyPath: model
-      value: Qwen3-8B-Q4_K_M.gguf
-      objectReference: {fileID: 0}
-    - target: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-      propertyPath: batchSize
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-      propertyPath: contextSize
-      value: 16384
-      objectReference: {fileID: 0}
-    - target: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-      propertyPath: numGPULayers
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-      propertyPath: advancedOptions
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-      propertyPath: embeddingLength
-      value: 4096
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3172,66 +3148,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LLMCharacter
       objectReference: {fileID: 0}
-    - target: {fileID: 8712089862565612687, guid: 46e705caac818af4e98960c5e8f393e0, type: 3}
-      propertyPath: _llm
-      value: 
-      objectReference: {fileID: 1887089738}
-    - target: {fileID: 8712089862565612687, guid: 46e705caac818af4e98960c5e8f393e0, type: 3}
-      propertyPath: seed
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8712089862565612687, guid: 46e705caac818af4e98960c5e8f393e0, type: 3}
-      propertyPath: prompt
-      value: "You are generating the missing CENTER tile of a 3\xD73 grid of JSON
-        scene data.\r\n\r\nINPUT STRUCTURE:\r\nYou will receive 8 JSON chunks arranged
-        as:\r\n\r\n[Top-Left]     [Top-Center]     [Top-Right]\r\n[Mid-Left]        
-        [ ??? ]       [Mid-Right]\r\n[Bot-Left]     [Bot-Center]     [Bot-Right]\r\n\r\nYour
-        task: Generate ONLY the missing middle tile.\r\n\r\n---\r\n\r\nOUTPUT FORMAT
-        (MANDATORY):\r\nYour response must be ONLY a valid JSON object with this
-        EXACT structure:\r\n\r\n{\r\n    \"objects\": [\r\n        {\r\n           
-        \"name\": \"ObjectName\",\r\n            \"position\": { \"x\": 0.0, \"y\":
-        0.0, \"z\": 0.0 },\r\n            \"rotation\": { \"x\": 0.0, \"y\": 0.0,
-        \"z\": 0.0, \"w\": 1.0 },\r\n            \"size\": { \"x\": 1.0, \"y\": 1.0,
-        \"z\": 1.0 }\r\n        }\r\n    ]\r\n}\r\n\r\nNO markdown code blocks (```json),
-        NO explanations, NO additional text.\r\nONLY the raw JSON object.\r\n\r\n---\r\n\r\nSTRICT
-        GENERATION RULES:\r\n\r\n1. COORDINATE CONSTRAINTS:\r\n   - All position.x
-        values MUST be between -5.0 and 5.0\r\n   - All position.z values MUST be
-        between -5.0 and 5.0\r\n   - position.y should match the object type's typical
-        height (e.g., 1.0 for houses, 2.5 for trees, 0.4 for bushes)\r\n\r\n2. OBJECT
-        CONTINUITY:\r\n   - Analyze surrounding tiles for patterns (roads, tree lines,
-        building clusters, terrain features)\r\n   - Generate objects that logically
-        connect these patterns across the center tile\r\n   - Maintain consistent
-        object density with neighbors\r\n\r\n3. OBJECT CONSTRAINTS:\r\n   - ONLY
-        use object names that appear in the surrounding tiles (\"House\", \"Tree\",
-        \"Bush\", etc.)\r\n   - Match size patterns from surrounding tiles (e.g.,
-        if trees are size 0.42\xD75.0\xD70.42, use similar sizes)\r\n   - Use realistic
-        rotation quaternions (ensure w\xB2 + x\xB2 + y\xB2 + z\xB2 \u2248 1.0)\r\n\r\n4.
-        PLACEMENT LOGIC:\r\n   - If a road/path crosses from Top-Center to Bot-Center,
-        ensure it continues through the center\r\n   - If trees form a line in Mid-Left
-        and Mid-Right, place trees that continue this line\r\n   - If buildings cluster
-        near edges of surrounding tiles, place related objects accordingly\r\n\r\n5.
-        WHAT NOT TO DO:\r\n   - DO NOT invent new object names not present in the
-        8 surrounding tiles\r\n   - DO NOT place objects outside the -5 to 5 range
-        on x or z axes\r\n   - DO NOT output anything except the JSON object\r\n  
-        - DO NOT modify or reference the surrounding tiles in your output\r\n\r\n---\r\n\r\nEXAMPLE
-        OUTPUT (structure only):\r\n{\r\n    \"objects\": [\r\n        {\r\n           
-        \"name\": \"Tree\",\r\n            \"position\": { \"x\": -2.4, \"y\": 2.5,
-        \"z\": 3.1 },\r\n            \"rotation\": { \"x\": 0.0, \"y\": 0.707, \"z\":
-        0.0, \"w\": 0.707 },\r\n            \"size\": { \"x\": 0.428, \"y\": 5.0,
-        \"z\": 0.428 }\r\n        },\r\n        {\r\n            \"name\": \"Bush\",\r\n           
-        \"position\": { \"x\": 1.8, \"y\": 0.4, \"z\": -4.2 },\r\n            \"rotation\":
-        { \"x\": 0.0, \"y\": -0.189, \"z\": 0.0, \"w\": 0.981 },\r\n            \"size\":
-        { \"x\": 1.0, \"y\": 0.8, \"z\": 1.2 }\r\n        }\r\n    ]\r\n}\r\n\r\n---\r\n\r\nBegin
-        generation now. Output ONLY the center tile JSON."
-      objectReference: {fileID: 0}
-    - target: {fileID: 8712089862565612687, guid: 46e705caac818af4e98960c5e8f393e0, type: 3}
-      propertyPath: temperature
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8712089862565612687, guid: 46e705caac818af4e98960c5e8f393e0, type: 3}
-      propertyPath: advancedOptions
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8732662691955572391, guid: 46e705caac818af4e98960c5e8f393e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3533,6 +3449,9 @@ MonoBehaviour:
   treePrefab: {fileID: 2017092480309403785, guid: 79ad6bdc1babdf74387d06110334e5dd, type: 3}
   bushPrefab: {fileID: 8908466952874689836, guid: 17c5ad410c9d1214c84ad255540bb3d7, type: 3}
   housePrefab: {fileID: 5961095827243520183, guid: 6ce2248b99a299742821c8ec6a8ce233, type: 3}
+  folderName: marcChunks 11
+  foldercounter: 16
+  worldPivot: {fileID: 0}
 --- !u!1001 &1868153255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3602,17 +3521,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79ad6bdc1babdf74387d06110334e5dd, type: 3}
---- !u!114 &1887089738 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3074378407104049986, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}
-  m_PrefabInstance: {fileID: 550597065}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1887089739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1313369397908778389, guid: 02a1c12f2b3661d48a3e0cdaf4c6cece, type: 3}

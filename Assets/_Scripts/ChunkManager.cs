@@ -68,7 +68,7 @@ public class ChunkManager : MonoBehaviour
     [Command]
     public void LoadChunk(string filename)
     {
-        string path = Path.Combine(Application.streamingAssetsPath + "\\marcChunks 44", filename);
+        string path = Path.Combine(Application.streamingAssetsPath + "\\chunks", filename);
         if (!File.Exists(path))
         {
             Debug.LogWarning("Chunk file not found!");
@@ -150,7 +150,7 @@ public class ChunkManager : MonoBehaviour
         }
     );
 
-        string path = Path.Combine(Application.streamingAssetsPath + "\\" + folderName + " " + foldercounter, filename);
+        string path = Path.Combine(Application.streamingAssetsPath + "\\chunks", filename);
         File.WriteAllText(path, roundedJson);
         ScreenCapture.CaptureScreenshot(Path.Combine(Application.streamingAssetsPath + "\\" + folderName + " " + foldercounter, filename + ".png"));
     }
